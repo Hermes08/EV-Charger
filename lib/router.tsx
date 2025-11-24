@@ -1,83 +1,98 @@
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+type Router = {
+  push: (href: string) => void;
+  replace: (href: string) => void;
+  back: () => void;
+};
 
-interface RouterContextType {
-  path: string;
-  push: (path: string) => void;
-}
+const RouterContext = createContext<Router | null>(null);
+const PathnameContext = createContext<string>('/');
 
-const RouterContext = createContext<RouterContextType | null>(null);
+export const useRouter = () => {
+  const router = useContext(RouterContext);
+  if (!router) throw new Error('useRouter must be used within a RouterProvider');
+  return router;
+};
 
-export const RouterProvider = ({ children }: { children: React.ReactNode }) => {
-  const [path, setPath] = useState(typeof window !== 'undefined' ? window.location.pathname : '/');
+export const usePathname = () => useContext(PathnameContext);
+
+export const RouterProvider = ({ children }: { children: ReactNode }) => {
+  const [pathname, setPathname] = useState('/');
 
   useEffect(() => {
-    const handlePopState = () => setPath(window.location.pathname);
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      
+      // Map hash to pathname
+      // Pages: #privacy, #terms, #sitemap, #admin, #blog/*
+      // Anchors (stay on home): #contact, #services, #testimonials, #neighborhoods, empty
+      
+      let newPath = '/';
+      
+      if (hash.startsWith('#blog/')) {
+        newPath = '/' + hash.substring(1); // /blog/slug
+      } else if (['#privacy', '#terms', '#sitemap', '#admin'].includes(hash)) {
+        newPath = '/' + hash.substring(1); // /privacy
+      } else {
+        // It's an anchor or empty, effectively root path
+        newPath = '/';
+      }
+      setPathname(newPath);
+    };
+
+    // Initialize
+    handleHashChange();
+    
+    // Listen
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const push = (newPath: string) => {
-    // Handle hash scrolling vs page navigation
-    if (newPath.includes('#')) {
-      const [pathname, hash] = newPath.split('#');
-      // If different page, push state
-      if (pathname && pathname !== window.location.pathname) {
-        window.history.pushState({}, '', newPath);
-        setPath(pathname);
-        setTimeout(() => {
-          const el = document.getElementById(hash);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      } else {
-        // Same page, just scroll
-        window.history.pushState({}, '', newPath);
-        const el = document.getElementById(hash);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+  const router: Router = {
+    push: (href: string) => {
+      // Handle full urls with hashes like '/#contact'
+      if (href.startsWith('/#')) {
+        window.location.hash = href.substring(2); // remove /# keep hash
+        return;
       }
-    } else {
-      window.history.pushState({}, '', newPath);
-      setPath(newPath);
-      window.scrollTo(0, 0);
-    }
+      
+      // Handle regular paths by converting to hash
+      if (href.startsWith('/')) {
+        if (href === '/') {
+          window.location.hash = '';
+        } else {
+          // /blog/slug -> #blog/slug
+          window.location.hash = href.substring(1);
+        }
+      } else if (href.startsWith('#')) {
+        window.location.hash = href;
+      }
+    },
+    replace: (href: string) => {
+      router.push(href);
+    },
+    back: () => window.history.back(),
   };
 
   return (
-    <RouterContext.Provider value={{ path, push }}>
-      {children}
+    <RouterContext.Provider value={router}>
+      <PathnameContext.Provider value={pathname}>
+        {children}
+      </PathnameContext.Provider>
     </RouterContext.Provider>
   );
 };
 
-export const useRouter = () => {
-  const context = useContext(RouterContext);
-  if (!context) throw new Error('useRouter must be used within a RouterProvider');
-  return { push: context.push };
-};
+export const Link = ({ href, children, className, onClick, ...props }: any) => {
+  const router = useRouter();
 
-export const usePathname = () => {
-  const context = useContext(RouterContext);
-  if (!context) return '/';
-  return context.path;
-};
-
-interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  href: string;
-}
-
-export const Link: React.FC<LinkProps> = ({ href, children, className, onClick, ...props }) => {
-  const { push } = useRouter();
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (e: React.MouseEvent) => {
     if (onClick) onClick(e);
-
-    // Allow default behavior for external links
-    if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) {
-      return;
-    }
+    if (e.defaultPrevented) return;
 
     e.preventDefault();
-    push(href);
+    router.push(href);
   };
 
   return (

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader } from './ui/Card';
 import Button from './ui/Button';
@@ -29,11 +28,11 @@ const Sitemap: React.FC = () => {
                 <h2 className="text-xl font-semibold text-secondary mb-4 border-b border-gray-800 pb-2">Main Pages</h2>
                 <ul className="space-y-2">
                   <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
-                  <li><a href="/#services" className="hover:text-primary transition-colors">Services</a></li>
-                  <li><a href="/#neighborhoods" className="hover:text-primary transition-colors">Service Areas</a></li>
-                  <li><a href="/#testimonials" className="hover:text-primary transition-colors">Reviews</a></li>
-                  <li><a href="/#blog" className="hover:text-primary transition-colors">Blog</a></li>
-                  <li><a href="/#contact" className="hover:text-primary transition-colors">Contact Us</a></li>
+                  <li><Link href="/#services" className="hover:text-primary transition-colors">Services</Link></li>
+                  <li><Link href="/#neighborhoods" className="hover:text-primary transition-colors">Service Areas</Link></li>
+                  <li><Link href="/#testimonials" className="hover:text-primary transition-colors">Reviews</Link></li>
+                  <li><Link href="/#blog" className="hover:text-primary transition-colors">Blog</Link></li>
+                  <li><Link href="/#contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
                 </ul>
               </div>
 

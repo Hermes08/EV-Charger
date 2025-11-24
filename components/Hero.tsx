@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -40,7 +39,6 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10 flex flex-col lg:flex-row items-center gap-12">
-        
         <div className="flex-1 text-center lg:text-left">
           <div className="inline-block px-3 py-1 mb-4 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-sm font-semibold">
             #1 Rated EV Charger Installers in Denver

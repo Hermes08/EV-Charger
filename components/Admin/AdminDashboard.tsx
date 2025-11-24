@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { useData } from '../../context/DataContext';
 import Button from '../ui/Button';
 import { Card, CardContent } from '../ui/Card';
 import { BlogPost } from '../../types';
 import Login from './Login';
-import { useRouter } from '../../lib/router';
+import { Link } from '../../lib/router';
 
 const AdminDashboard: React.FC = () => {
   const { blogPosts, addBlogPost, updateBlogPost, deleteBlogPost, resetData, isDirty } = useData();
@@ -13,8 +12,8 @@ const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'posts' | 'media' | 'settings'>('posts');
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [isCreating, setIsCreating] = useState(false);
-  const router = useRouter();
 
+  // Suggested Unsplash images for the "Media" tab
   const mediaLibrary = [
     "https://images.unsplash.com/photo-1554224154-260327c00c40?auto=format&fit=crop&q=80&w=1200",
     "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=1200",
@@ -81,7 +80,9 @@ const AdminDashboard: React.FC = () => {
            <span className="font-bold">CMS Admin</span>
         </div>
         <div className="flex gap-2">
-           <Button variant="outline" size="sm" onClick={() => router.push('/')}>View Site</Button>
+           <Link href="/">
+             <Button variant="outline" size="sm">View Site</Button>
+           </Link>
            <Button variant="ghost" size="sm" onClick={() => setIsAuthenticated(false)}>Logout</Button>
         </div>
       </header>
