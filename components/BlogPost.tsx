@@ -1,8 +1,11 @@
 
+'use client';
+
 import React from 'react';
 import { BUSINESS_SCHEMA } from '../constants';
 import Button from './ui/Button';
 import { useData } from '../context/DataContext';
+import { Link } from '../lib/router';
 
 interface BlogPostProps {
   slug: string;
@@ -16,12 +19,13 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
     return (
       <div className="py-20 text-center text-white">
         <h2 className="text-2xl font-bold">Article Not Found</h2>
-        <Button variant="outline" className="mt-4" onClick={() => window.location.hash = ''}>Return Home</Button>
+        <Link href="/">
+          <Button variant="outline" className="mt-4">Return Home</Button>
+        </Link>
       </div>
     );
   }
 
-  // Schema.org ImageObject for the Blog Image
   const imageSchema = {
     "@context": "https://schema.org",
     "@type": "ImageObject",
@@ -37,15 +41,15 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
 
   return (
     <article className="py-20 bg-background min-h-screen">
-      <script type="application/ld+json">
-        {JSON.stringify(imageSchema)}
-      </script>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageSchema) }} />
 
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="mb-8">
-           <Button variant="outline" size="sm" onClick={() => window.location.hash = ''}>
-             <i className="fa-solid fa-arrow-left mr-2"></i> Back to Home
-           </Button>
+           <Link href="/">
+             <Button variant="outline" size="sm">
+               <i className="fa-solid fa-arrow-left mr-2"></i> Back to Home
+             </Button>
+           </Link>
         </div>
 
         <figure className="mb-8">
@@ -80,7 +84,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
             {post.excerpt}
           </p>
           
-          {/* Dynamic Content Rendering */}
           {post.content ? (
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           ) : (
@@ -90,7 +93,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
           <div className="bg-surface p-6 rounded-xl border border-gray-800 mt-8">
             <h4 className="font-bold text-white mb-2">Ready to install?</h4>
             <p className="mb-4 text-sm">Get a precise quote for your specific vehicle and home setup today.</p>
-            <Button variant="primary" onClick={() => window.location.hash = '#contact'}>Request Free Quote</Button>
+            <Link href="/#contact">
+              <Button variant="primary">Request Free Quote</Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,16 +1,20 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader } from './ui/Card';
 import Button from './ui/Button';
 import { BRAND_NAME, EMAIL_ADDRESS } from '../constants';
+import { Link } from '../lib/router';
 
 const PrivacyPolicy: React.FC = () => {
   return (
     <section className="py-20 bg-background min-h-screen">
       <div className="container mx-auto px-4">
         <div className="mb-8">
-           <Button variant="outline" size="sm" onClick={() => window.location.hash = ''}>
-             <i className="fa-solid fa-arrow-left mr-2"></i> Back to Home
-           </Button>
+           <Link href="/">
+             <Button variant="outline" size="sm">
+               <i className="fa-solid fa-arrow-left mr-2"></i> Back to Home
+             </Button>
+           </Link>
         </div>
         <Card className="bg-surface border-gray-800 max-w-4xl mx-auto">
           <CardHeader>
