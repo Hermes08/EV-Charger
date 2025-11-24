@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -19,9 +20,14 @@ import Newsletter from './components/Newsletter';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import { BRAND_NAME } from './constants';
 
-function App() {
-  const [currentView, setCurrentView] = useState('home');
-  const [currentBlogSlug, setCurrentBlogSlug] = useState('');
+interface AppProps {
+  serverView?: string;
+  serverSlug?: string;
+}
+
+function App({ serverView, serverSlug }: AppProps) {
+  const [currentView, setCurrentView] = useState(serverView || 'home');
+  const [currentBlogSlug, setCurrentBlogSlug] = useState(serverSlug || '');
 
   // Centralized Router Logic
   const handleRoute = () => {
@@ -44,6 +50,9 @@ function App() {
       newSlug = hash.replace('#blog/', '');
     } else {
       // Default to home for #contact, #services, empty hash, etc.
+      // If we are on the client and the hash is empty, but we were initialized with a serverView (e.g. from static HTML),
+      // we might want to respect the serverView initially. However, standard hash routing usually defaults to home if no hash.
+      // We'll keep default behavior here.
       newView = 'home';
     }
     
@@ -70,10 +79,16 @@ function App() {
   };
 
   useEffect(() => {
-    handleRoute();
-    window.addEventListener('hashchange', handleRoute);
-    return () => window.removeEventListener('hashchange', handleRoute);
-  }, []);
+    // Only bind the listener if we aren't in a static render (window exists)
+    if (typeof window !== 'undefined') {
+      // Run once on mount if no server props were passed, or if we want to sync with hash immediately
+      if (!serverView) {
+        handleRoute();
+      }
+      window.addEventListener('hashchange', handleRoute);
+      return () => window.removeEventListener('hashchange', handleRoute);
+    }
+  }, [serverView]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
