@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { BRAND_NAME, PHONE_NUMBER } from '../constants';
 import Button from './ui/Button';
-import { Link, usePathname, useRouter } from '../lib/router';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
