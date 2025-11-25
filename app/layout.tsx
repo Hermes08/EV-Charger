@@ -1,5 +1,6 @@
 import React from 'react';
 import { DataProvider } from '../context/DataContext';
+import { RouterProvider } from '../lib/router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Metadata } from 'next';
@@ -51,6 +52,7 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-gray-100 antialiased">
         <DataProvider>
+                  <RouterProvider>
           {/* We wrap Header/Footer here so they persist, but simple logic for hiding them on admin pages is handled via route groups or css if strictly needed. For now, they appear on all pages which is standard. */}
           <Header />
           <main className="min-h-screen">
@@ -58,6 +60,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </DataProvider>
+                  </RouterProvider>
       </body>
     </html>
   );
