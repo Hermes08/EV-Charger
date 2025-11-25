@@ -4,7 +4,7 @@ import React from 'react';
 import { BUSINESS_SCHEMA } from '../constants';
 import Button from './ui/Button';
 import { useData } from '../context/DataContext';
-import { Link } from '../lib/router';
+import Link from 'next/link';
 
 const BlogSection: React.FC = () => {
   const { blogPosts } = useData();
