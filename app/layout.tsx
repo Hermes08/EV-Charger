@@ -7,6 +7,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Best EV Charger Installation Denver | DenverEVChargers.com',
+    verification: { google: 'm_FE29juaM9j0ShHAOLnlsprN_usYLRuW9AUR73MQuy' },
   description: 'Expert electric vehicle charger installation Denver. Install electric car charger with licensed electricians. Tesla home charger installation from $800. Same-day quotes. Call (303) 555-0199.',
 };
 
@@ -19,6 +20,16 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <script src="https://cdn.tailwindcss.com"></script>
+              {/* Google Analytics 4 - Replace G-XXXXXXXXXX with your Measurement ID */}
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        `
+      }} />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         <script dangerouslySetInnerHTML={{
           __html: `
