@@ -57,7 +57,7 @@ const Header: React.FC = () => {
       )}
     
     
-          {/* Sticky Mobile Phone Button */}
+        {/* Sticky Mobile Phone Button */}
       <a
         href={`tel:${PHONE_NUMBER}`}
         className="fixed bottom-4 right-4 md:hidden z-50 bg-primary hover:bg-primary/90 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
@@ -65,6 +65,6 @@ const Header: React.FC = () => {
       >
         <i className="fa-solid fa-phone text-2xl"></i>
       </a>
-};
+    </header>
 
 export default Header;
