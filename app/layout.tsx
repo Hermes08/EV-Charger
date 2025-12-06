@@ -20,14 +20,14 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <script src="https://cdn.tailwindcss.com"></script>
-              {/* Google Analytics 4 - Replace G-XXXXXXXXXX with your Measurement ID */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+              {/* Google Analytics 4 - Replace G-ZYH9X6W12S with your Measurement ID */}
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYH9X6W12S"></script>
       <script dangerouslySetInnerHTML={{
         __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-XXXXXXXXXX');
+          gtag('config', 'G-ZYH9X6W12S');
         `
       }} />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
