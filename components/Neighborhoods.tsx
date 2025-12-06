@@ -2,8 +2,7 @@ import React from 'react';
 import { TARGET_NEIGHBORHOODS } from '../constants';
 
 const Neighborhoods: React.FC = () => {
-  const residentialImg = "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=800";
-  const commercialImg = "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=800";
+  const residentialImg = "https://i.ibb.co/V0GxZzvr/Seamless-Level-2-charger-integration-in-Washington-Park-We-specialize-in-preserving-Denver-039-s-archit.png";  const commercialImg = "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=800";
 
   const schemaData = [
     {
