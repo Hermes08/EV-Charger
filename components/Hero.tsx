@@ -12,8 +12,7 @@ const Hero: React.FC = () => {
     router.push(`/${hash}`);
   };
 
-  const heroImageSrc = "https://images.unsplash.com/photo-1571127236794-81c0bbfe1ce3?auto=format&fit=crop&q=80&w=1200";
-
+  const heroImageSrc = "https://i.ibb.co/jZfBH7YK/Hero-Section.jpg";
   const imageSchema = {
     "@context": "https://schema.org",
     "@type": "ImageObject",
