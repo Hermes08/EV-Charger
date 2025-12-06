@@ -60,12 +60,11 @@ const Header: React.FC = () => {
           {/* Sticky Mobile Phone Button */}
       <a
         href={`tel:${PHONE_NUMBER}`}
-        className="fixed bottom-6 right-6 md:hidden z-50 bg-primary hover:bg-primary/90 text-white px-6 py-4 rounded-full shadow-lg flex items-center gap-2 text-lg font-bold transition-all"
+        className="fixed bottom-4 right-4 md:hidden z-50 bg-primary hover:bg-primary/90 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
+        aria-label="Call us now"
       >
-        <i className="fa-solid fa-phone"></i>
-        Call Now & Get Your Free Quote
-      </a></header>
-  );
+        <i className="fa-solid fa-phone text-2xl"></i>
+      </a>
 };
 
 export default Header;
