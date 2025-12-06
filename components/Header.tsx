@@ -55,7 +55,16 @@ const Header: React.FC = () => {
           </nav>
         </div>
       )}
-    </header>
+    
+    
+          {/* Sticky Mobile Phone Button */}
+      <a
+        href={`tel:${PHONE_NUMBER}`}
+        className="fixed bottom-6 right-6 md:hidden z-50 bg-primary hover:bg-primary/90 text-white px-6 py-4 rounded-full shadow-lg flex items-center gap-2 text-lg font-bold transition-all"
+      >
+        <i className="fa-solid fa-phone"></i>
+        Call Now & Get Your Free Quote
+      </a></header>
   );
 };
 
